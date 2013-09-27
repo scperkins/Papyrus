@@ -1,24 +1,26 @@
-#! /usr/bin/python
+#!/usr/bin/env python
 import sys
 import os
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 
-class Notepad(QtGui.QMainWindow):
+class Papyrus(QtGui.QMainWindow):
 
 	def __init__(self):
-		super(Notepad, self).__init__()
+		super(Papyrus, self).__init__()
 		self.initUI()
 
 	def initUI(self):
 		closeAction = QtGui.QAction('Close', self)
 		closeAction.setShortcut('Ctrl+Q')
-		closeAction.setStatusTip('Close Notepad')
+		closeAction.setStatusTip('Close Papyrus')
 		closeAction.triggered.connect(self.close)
 
+		#menu bar items
 		menubar = self.menuBar()
 		fileMenu = menubar.addMenu('&File')
-		fileMenu.addAction(closeAction)
-
+		editMenu = menubar.addMenu('&Edit')
+		
+		#file menu actions
 		newAction = QtGui.QAction('New', self)
 		newAction.setShortcut('Ctrl+N')
 		newAction.setStatusTip('Create new file')
@@ -34,15 +36,35 @@ class Notepad(QtGui.QMainWindow):
 		openAction.setStatusTip("Open a file")
 		openAction.triggered.connect(self.openFile)
 
+		
 		fileMenu.addAction(newAction)
 		fileMenu.addAction(saveAction)
 		fileMenu.addAction(openAction)
+		fileMenu.addAction(closeAction)
+
+		
+		#Edit menu actions
+		copyText = QtGui.QTextEdit(self)
+		copyText.setStatusTip("Input text here")
+		copyText.setToolTip("Input text here")
+		self.setCentralWidget(copyText)
+
+		copyAction = QtGui.QAction("Copy", self)
+		copyAction.setShortcut("Ctrl+C")
+		copyAction.setStatusTip('Copy text')
+		copyAction.triggered.connect(copyText.copy)
+
+		editMenu.addAction(copyAction)
+		
+		#fontAction = QtGui.QAction('Choose font...', self)
+		#fontAction.triggered.connect(self.selectFont)
+		
 
 		self.text = QtGui.QTextEdit(self)
 		self.setCentralWidget(self.text)
 
-		self.setGeometry(300,300,300,300)
-		self.setWindowTitle('Notepad')
+		self.setGeometry(400,400,400,400)
+		self.setWindowTitle('Papyrus')
 		self.show()
 
 	def newFile(self):
@@ -61,9 +83,12 @@ class Notepad(QtGui.QMainWindow):
 		self.text.setText(filedata)
 		f.close()
 
+	#def selectFont(self):
+
+
 def main():
 	app = QtGui.QApplication(sys.argv)
-	notepad = Notepad()
+	papyrus = Papyrus()
 	sys.exit(app.exec_())
 
 if __name__ == '__main__':
