@@ -44,21 +44,20 @@ class Papyrus(QtGui.QMainWindow):
 
 		
 		#Edit menu actions
-		copyText = QtGui.QTextEdit(self)
-		copyText.setStatusTip("Input text here")
-		copyText.setToolTip("Input text here")
-		self.setCentralWidget(copyText)
+		edit = QtGui.QTextEdit(self)
+		edit.setStatusTip('Input Text Here')
+		edit.setToolTip('Input Text Here')
+		self.setCentralWidget(edit)
 
 		copyAction = QtGui.QAction("Copy", self)
 		copyAction.setShortcut("Ctrl+C")
 		copyAction.setStatusTip('Copy text')
-		copyAction.triggered.connect(copyText.copy)
+		copyAction.triggered.connect(edit.copy)
 
 		editMenu.addAction(copyAction)
-		
+
 		#fontAction = QtGui.QAction('Choose font...', self)
 		#fontAction.triggered.connect(self.selectFont)
-		
 
 		self.text = QtGui.QTextEdit(self)
 		self.setCentralWidget(self.text)
