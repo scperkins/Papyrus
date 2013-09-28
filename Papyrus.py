@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import sys
 import os
 from PyQt4 import QtGui, QtCore
 
@@ -8,6 +7,12 @@ class Papyrus(QtGui.QMainWindow):
 	def __init__(self):
 		super(Papyrus, self).__init__()
 		self.initUI()
+
+	def center(self):
+		frame = self.frameGeometry()
+		cent = QtGui.QDesktopWidget().availableGeometry().center()
+		frame.moveCenter(cent)
+		self.move(frame.topLeft())
 
 	def initUI(self):
 		closeAction = QtGui.QAction('Close', self)
@@ -45,22 +50,35 @@ class Papyrus(QtGui.QMainWindow):
 		
 		#Edit menu actions
 		edit = QtGui.QTextEdit(self)
-		edit.setStatusTip('Input Text Here')
-		edit.setToolTip('Input Text Here')
 		self.setCentralWidget(edit)
 
-		copyAction = QtGui.QAction("Copy", self)
+		#copy
+		copyAction = QtGui.QAction("&Copy", self)
 		copyAction.setShortcut("Ctrl+C")
 		copyAction.setStatusTip('Copy text')
 		copyAction.triggered.connect(edit.copy)
 
+		#cut
+		cutAction = QtGui.QAction('&Cut', self)
+		cutAction.setShortcut('Ctrl+X')
+		cutAction.setStatusTip("Cut text")
+		cutAction.triggered.connect(edit.cut)
+
+		#paste
+		pasteAction = QtGui.QAction('&Paste', self)
+		pasteAction.setShortcut('Ctrl+V')
+		pasteAction.setStatusTip('Paste text')
+		pasteAction.triggered.connect(edit.paste)
+
 		editMenu.addAction(copyAction)
+		editMenu.addAction(cutAction)
+		editMenu.addAction(pasteAction)
 
 		#fontAction = QtGui.QAction('Choose font...', self)
 		#fontAction.triggered.connect(self.selectFont)
 
-		self.text = QtGui.QTextEdit(self)
-		self.setCentralWidget(self.text)
+		# self.text = QtGui.QTextEdit(self)
+		# self.setCentralWidget(self.text)
 
 		self.setGeometry(400,400,400,400)
 		self.setWindowTitle('Papyrus')
@@ -82,13 +100,3 @@ class Papyrus(QtGui.QMainWindow):
 		self.text.setText(filedata)
 		f.close()
 
-	#def selectFont(self):
-
-
-def main():
-	app = QtGui.QApplication(sys.argv)
-	papyrus = Papyrus()
-	sys.exit(app.exec_())
-
-if __name__ == '__main__':
-	main()
