@@ -14,7 +14,7 @@ class Papyrus(QtGui.QMainWindow):
 		#super(Papyrus, self).__init__()
 		self.initUI()
 		font = QFont()
-		font.setFamily( "Courier" )
+		font.setFamily( "Ubuntu" )
 		font.setFixedPitch( True )
 		font.setPointSize( 10 )
 		editor = QTextEdit()

@@ -48,7 +48,7 @@ class MyHighlighter( QSyntaxHighlighter ):
 
 
       # assignmentOperator
-      brush = QBrush( Qt.yellow, Qt.SolidPattern )
+      brush = QBrush( Qt.darkYellow, Qt.SolidPattern )
       pattern = QRegExp( "(<){1,2}-" )
       assignmentOperator.setForeground( brush )
       assignmentOperator.setFontWeight( QFont.Bold )
