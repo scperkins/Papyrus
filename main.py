@@ -7,7 +7,6 @@ from highlighter import *
 def main():
 	app = QtGui.QApplication(sys.argv)
 	papyrus = Papyrus()
-	highlighter = MyHighlighter(papyrus, "Classic")
 	papyrus.show()
 	papyrus.raise_()
 	sys.exit(app.exec_())

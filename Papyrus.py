@@ -12,16 +12,7 @@ class Papyrus(QtGui.QMainWindow):
 	def __init__(self):
 		QtGui.QMainWindow.__init__(self)
 		#super(Papyrus, self).__init__()
-		self.initUI()
-		font = QFont()
-		font.setFamily( "Ubuntu" )
-		font.setFixedPitch( True )
-		font.setPointSize( 10 )
-		editor = QTextEdit()
-		editor.setFont( font )
-		highlighter = MyHighlighter( editor, "Classic" )
-		self.setCentralWidget( editor )
-		
+		self.initUI()		
 
 	def center(self):
 		frame = self.frameGeometry()
@@ -35,12 +26,13 @@ class Papyrus(QtGui.QMainWindow):
 		closeAction.setStatusTip('Close Papyrus')
 		closeAction.triggered.connect(self.close)
 
-		#menu bar items
+		'''menu bar items'''
 		menubar = self.menuBar()
 		fileMenu = menubar.addMenu('&File')
 		editMenu = menubar.addMenu('&Edit')
+		viewMenu = menubar.addMenu('&View')
 		
-		#file menu actions
+		'''file menu actions'''
 		newAction = QtGui.QAction('New', self)
 		newAction.setShortcut('Ctrl+N')
 		newAction.setStatusTip('Create new file')
@@ -63,7 +55,7 @@ class Papyrus(QtGui.QMainWindow):
 		fileMenu.addAction(closeAction)
 
 		
-		#Edit menu actions
+		'''Edit Menu Actions '''
 		edit = QtGui.QTextEdit(self)
 		self.setCentralWidget(edit)
 
@@ -89,11 +81,18 @@ class Papyrus(QtGui.QMainWindow):
 		editMenu.addAction(cutAction)
 		editMenu.addAction(pasteAction)
 
+		'''View Menu Actions'''
+		syntaxMenu = QtGui.QAction('&Syntax', self)
+		syntaxMenu.setStatusTip('Set syntax highlighting')
+		syntaxMenu.triggered.connect(self.togglePython)
+
+		viewMenu.addAction(syntaxMenu)
+
 		#fontAction = QtGui.QAction('Choose font...', self)
 		#fontAction.triggered.connect(self.selectFont)
 
-		# self.text = QtGui.QTextEdit(self)
-		# self.setCentralWidget(self.text)
+		self.text = QtGui.QTextEdit(self)
+		self.setCentralWidget(self.text)
 
 		self.setGeometry(400,400,400,400)
 		self.setWindowTitle('Papyrus')
@@ -115,3 +114,12 @@ class Papyrus(QtGui.QMainWindow):
 		self.text.setText(filedata)
 		f.close()
 
+	def togglePython(self):
+		font = QFont()
+		font.setFamily( "Ubuntu" )
+		font.setFixedPitch( True )
+		font.setPointSize( 10 )
+		editor = QTextEdit()
+		editor.setFont( font )
+		highlighter = MyHighlighter( editor, "Classic" )
+		self.setCentralWidget( editor )

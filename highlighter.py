@@ -1,7 +1,6 @@
 import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-# from Papyrus import *
 
 class MyHighlighter( QSyntaxHighlighter ):
 
