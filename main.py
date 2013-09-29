@@ -2,7 +2,7 @@
 import sys
 from Papyrus import Papyrus
 from PyQt4 import QtGui
-from highlighter import MyHighlighter
+from highlighter import *
 
 def main():
 	app = QtGui.QApplication(sys.argv)

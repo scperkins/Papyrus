@@ -1,6 +1,7 @@
 import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+# from Papyrus import *
 
 class MyHighlighter( QSyntaxHighlighter ):
 
@@ -139,5 +140,6 @@ class TestApp( QMainWindow ):
 if __name__ == "__main__":
   app = QApplication( sys.argv )
   window = TestApp()
+  highlighter = MyHighlighter(window, 'Classic')
   window.show()
   sys.exit( app.exec_() )

@@ -1,12 +1,27 @@
 #!/usr/bin/env python
 import os
+from PyQt4 import *
 from PyQt4 import QtGui, QtCore
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
+from highlighter import MyHighlighter
+
 
 class Papyrus(QtGui.QMainWindow):
 
 	def __init__(self):
-		super(Papyrus, self).__init__()
+		QtGui.QMainWindow.__init__(self)
+		#super(Papyrus, self).__init__()
 		self.initUI()
+		font = QFont()
+		font.setFamily( "Courier" )
+		font.setFixedPitch( True )
+		font.setPointSize( 10 )
+		editor = QTextEdit()
+		editor.setFont( font )
+		highlighter = MyHighlighter( editor, "Classic" )
+		self.setCentralWidget( editor )
+		
 
 	def center(self):
 		frame = self.frameGeometry()
