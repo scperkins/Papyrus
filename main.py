@@ -2,10 +2,12 @@
 import sys
 from Papyrus import Papyrus
 from PyQt4 import QtGui
+from highlighter import MyHighlighter
 
 def main():
 	app = QtGui.QApplication(sys.argv)
 	papyrus = Papyrus()
+	highlighter = MyHighlighter(papyrus, "Classic")
 	papyrus.show()
 	papyrus.raise_()
 	sys.exit(app.exec_())
