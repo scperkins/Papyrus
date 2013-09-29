@@ -82,11 +82,11 @@ class Papyrus(QtGui.QMainWindow):
 		editMenu.addAction(pasteAction)
 
 		'''View Menu Actions'''
-		syntaxMenu = QtGui.QAction('&Syntax', self)
-		syntaxMenu.setStatusTip('Set syntax highlighting')
-		syntaxMenu.triggered.connect(self.togglePython)
-
+		syntaxMenu = viewMenu.addAction('Syntax')
+		subMenu = QtGui.QMenu('Popup Submenu', self)
+		subMenu.addAction("Python", self.togglePython)
 		viewMenu.addAction(syntaxMenu)
+		syntaxMenu.setMenu(subMenu)
 
 		#fontAction = QtGui.QAction('Choose font...', self)
 		#fontAction.triggered.connect(self.selectFont)
